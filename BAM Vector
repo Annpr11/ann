@@ -1,0 +1,101 @@
+import numpy as np
+x1=np.array([1,1,1])
+y1=np.array([1,1,-1,-1])
+x2=np.array([-1,-1,1])
+y2=np.array([-1,-1,1,1])
+
+w1=np.outer(x1,y1)+np.outer(x2,y2)
+print("w=",w1)
+
+print("\n----------FORWARD Call----------------")
+print("\ninput")
+print("original x1=",x1)
+print("original x2=",x2)
+print("\noutput")
+y1=np.sign(np.dot(x1,w1))
+print("\ny1",y1)
+y2=np.sign(np.dot(x2,w1))
+print("\ny2",y2)
+
+print("\n----------FORWARD Call----------------")
+print("\ninput")
+print("original y1=",y1)
+print("original y2=",y2)
+print("\noutput")
+x1=np.sign(np.dot(y1,w1.T))
+print("\nX1",x1)
+x2=np.sign(np.dot(y2,w1.T))
+print("\nX2",x2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import numpy as np
+# Imports NumPy for matrix operations.
+# x1=np.array([1,1,1])
+# y1=np.array([1,1,-1,-1])
+# x2=np.array([-1,-1,1])
+# y2=np.array([-1,-1,1,1])
+# Defines two pattern pairs:
+# Pair 1: x1 ↔ y1
+# Pair 2: x2 ↔ y2
+# Values are bipolar (+1, -1) for neural networks.
+# w1=np.outer(x1,y1)+np.outer(x2,y2)
+# Creates weight matrix using outer product rule:
+# outer(x1, y1) stores first pair
+# outer(x2, y2) stores second pair
+# Adding them combines both memories.
+# print("w=",w1)
+#  Output:
+# w= [[ 2  2 -2 -2]
+#      [ 2  2 -2 -2]
+#      [ 0  0  0  0]]
+#  Reason:
+# First two rows are same because x1 and x2 contribute similarly
+# Third row becomes 0 due to cancellation:
+# (1×something) + (-1×same something) = 0
+#  Forward Recall (X → Y)
+# y1=np.sign(np.dot(x1,w1))
+# Multiplies x1 with weights → gets output
+# sign() converts:
+# positive → 1
+# negative → -1
+# Output:
+# y1 [ 1  1 -1 -1]
+
+# ✔ Correctly recalls original y1
+
+# y2=np.sign(np.dot(x2,w1))
+#  Output:
+# y2 [-1 -1  1  1]
+
+# ✔ Correctly recalls original y2
+
+#  Backward Recall (Y → X)
+# x1=np.sign(np.dot(y1,w1.T))
+# Uses transpose of weight matrix
+# Recovers input from output
+#  Output:
+# X1 [1 1 0]
+
+#  Reason:
+
+# Last value becomes 0
+# Because third row of weight matrix is all zeros → no contribution
+# x2=np.sign(np.dot(y2,w1.T))
+#  Output:
+# X2 [-1 -1  0]
+
+#  Same reason → last element becomes 0
