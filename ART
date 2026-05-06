@@ -1,0 +1,142 @@
+
+import numpy as np
+
+# Input patterns
+patterns = [
+    np.array([1, 1, 0, 0]),
+    np.array([1, 1, 0, 1]),
+    np.array([0, 0, 1, 1]),
+    np.array([0, 0, 1, 0])
+]
+
+vigilance = 0.6
+w = []
+
+# Matching function
+def match(x, w):
+    y = np.dot(x, w)
+    return np.sum(y) / np.sum(x)
+
+cluster = []
+
+for p in patterns:
+    f = 0
+
+    if len(w) == 0:
+        print("match: 1 (first pattern with itself)")
+
+    for i in range(len(w)):
+        m = match(p, w[i])
+        print("------------------------------")
+        print("match:", m)
+
+        if m >= vigilance:
+            print(p.tolist(), "-> same cluster", i)
+            w[i] = np.minimum(w[i], p)
+            print("w =", w[i].tolist())
+            cluster[i].append(p)
+            f = 1
+            break
+
+    if f == 0:
+        w.append(p)
+        cluster.append([p])
+        print("w =", [arr.tolist() for arr in w])
+        print(p.tolist(), "-> new cluster", len(w)-1)
+
+print("\n************")
+print("\nFinal clusters:")
+
+for i in range(len(cluster)):
+    print("------------------------------")
+    print("Cluster", i, ":")
+    for p in cluster[i]:
+        print(p.tolist())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import numpy as np
+# Imports NumPy for array and mathematical operations.
+# Input Patterns
+# patterns = [
+#     np.array([1, 1, 0, 0]),
+#     np.array([1, 1, 0, 1]),
+#     np.array([0, 0, 1, 1]),
+#     np.array([0, 0, 1, 0])
+# ]
+# Defines 4 binary input patterns to be clustered.
+# vigilance = 0.6
+# Sets similarity threshold:
+# If match ≥ 0.6 → same cluster
+# Else → new cluster
+# w = []
+# Stores cluster weights (representatives).
+# Matching Function
+# def match(x, w):
+#     y = np.dot(x, w)
+#     return np.sum(y) / np.sum(x)
+# Computes similarity between input x and weight w
+# Formula:
+# Dot product gives matching bits
+# Divide by total 1s in input → normalized match
+# cluster = []
+# Stores grouped patterns.
+# Main Loop
+# for p in patterns:
+# Takes each pattern one by one.
+# f = 0
+# Flag → checks if pattern is assigned to a cluster.
+# if len(w) == 0:
+#     print("match: 1 (first pattern with itself)")
+# First pattern always forms first cluster.
+# for i in range(len(w)):
+# Compares pattern with existing clusters.
+# m = match(p, w[i])
+# Calculates similarity.
+# print("match:", m)
+# Displays match value.
+# if m >= vigilance:
+# Checks if similarity is high enough.
+# print(p.tolist(), "-> same cluster", i)
+# Assigns pattern to existing cluster.
+# w[i] = np.minimum(w[i], p)
+# Updates cluster weight:
+# Keeps only common features (logical AND)
+# cluster[i].append(p)
+# Adds pattern to cluster.
+# f = 1
+# break
+# Marks as assigned and stops checking.
+# New Cluster Creation
+# if f == 0:
+# If no match found.
+# w.append(p)
+# cluster.append([p])
+# Creates new cluster.
+# print(p.tolist(), "-> new cluster", len(w)-1)
+# Displays new cluster creation.
+# Final Output
+# print("\nFinal clusters:")
+# Prints final result.
+# for i in range(len(cluster)):
+# Loops through clusters.
+# print("Cluster", i)
+# Prints cluster number.
+# for p in cluster[i]:
+#     print(p.tolist())
+# Prints all patterns in that cluster.
