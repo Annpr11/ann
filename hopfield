@@ -1,0 +1,102 @@
+import numpy as np
+
+# Training patterns (bipolar)
+p = np.array([
+    [1, -1, -1, 1],
+    [-1, 1, -1, 1],
+    [-1, 1, 1, -1],
+    [1, -1, 1, -1]
+])
+
+# Weight matrix initialization
+w = np.dot(p.T, p)
+
+# Set diagonal to zero (no self-connection)
+np.fill_diagonal(w, 0)
+
+print("Weight matrix:\n", w)
+
+# Test patterns
+n = np.array([
+    [1, 1, -1, 1],
+    [-1, -1, -1, 1],
+    [1, 1, 1, -1],
+    [1, -1, 1, 1]
+])
+
+# Recall
+x = np.dot(w, n)
+
+# Activation function (bipolar)
+y = np.where(x >= 0, 1, -1)
+
+print("Output pattern:\n", y)
+
+
+
+
+
+
+
+
+
+# import numpy as np
+
+# Used for matrix operations.
+
+# Training Patterns
+# p = np.array([
+#     [1, -1, -1, 1],
+#     [-1, 1, -1, 1],
+#     [-1, 1, 1, -1],
+#     [1, -1, 1, -1]
+# ])
+
+# These are stored patterns (memory) in bipolar form (+1, -1).
+
+#  Weight Matrix
+# w = np.dot(p.T, p)
+#p.T → transpose of matrix p (rows become columns)
+#np.dot(p.T, p) → performs matrix multiplication
+# Creates weight matrix using Hebbian Learning Rule
+#  Stores relationships between pattern elements.
+
+# np.fill_diagonal(w, 0)
+
+#  Removes self-connection (no neuron connects to itself).
+
+#  Weight Matrix Output
+# Weight matrix:
+# [[ 0 -4  0  4]
+#  [-4  0  4  0]
+#  [ 0  4  0 -4]
+#  [ 4  0 -4  0]]
+
+#  Positive = similar
+#  Negative = opposite
+
+# Test Patterns (Noisy Input)
+# n = np.array([
+#     [1, 1, -1, 1],
+#     [-1, -1, -1, 1],
+#     [1, 1, 1, -1],
+#     [1, -1, 1, 1]
+# ])
+
+# These are distorted versions of original patterns.
+
+#  Recall Step
+# x = np.dot(w, n)
+
+#  Multiplies weight matrix with input
+# Produces intermediate values.
+
+#  Activation Function
+# y = np.where(x >= 0, 1, -1)
+
+# Converts output:
+
+# ≥ 0 → 1
+# < 0 → -1
+
+#  Restores clean pattern.
