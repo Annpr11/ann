@@ -1,0 +1,115 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras import layers
+
+x = np.array([
+    [5, 60, 50],
+    [6, 65, 55],
+    [7, 70, 60],
+    [8, 80, 70]
+])
+
+y = np.array([0, 0, 1, 1])
+
+max_vals = np.max(x, axis=0)
+x = x / max_vals
+
+model = tf.keras.Sequential([
+    tf.keras.Input(shape=(3,)),
+    layers.Dense(1, activation='sigmoid')
+])
+
+model.compile(
+    optimizer='sgd',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+model.fit(x, y, epochs=1000, verbose=0)
+
+X = []
+for i in range(4):
+    print(f"\nStudent {i+1}")
+    study = float(input("Enter study hours: "))
+    attend = float(input("Enter attendance: "))
+    assign = float(input("Enter assignment score: "))
+    X.append([study, attend, assign])
+
+X = np.array(X)
+X = X / max_vals
+
+predictions = model.predict(X)
+
+print("\n------ Result ------")
+
+for i in range(4):
+    prob = predictions[i][0]
+    result = "PASS" if prob >= 0.5 else "FAIL"
+
+    print(f"\nStudent {i+1}:")
+    print(f"Study Hours: {X[i][0] * max_vals[0]}")
+    print(f"Attendance: {X[i][1] * max_vals[1]}")
+    print(f"Assignment Score: {X[i][2] * max_vals[2]}")
+    print(f"Prediction: {result}")
+    print(f"Confidence: {prob:.2f}")
+
+# Import libraries
+# import numpy as np → used to handle arrays and numerical data
+# import tensorflow as tf → used to build and train neural network using TensorFlow
+# from tensorflow.keras import layers → used to create layers in the model
+# Training data
+# x = np.array([...]) → input dataset with 3 features
+# study hours
+# attendance
+# assignment score
+# y = np.array([0, 0, 1, 1]) → output labels
+# 0 = Fail
+# 1 = Pass
+# Normalization
+# max_vals = np.max(x, axis=0) → finds maximum value of each column
+# x = x / max_vals → scales all values between 0 and 1
+
+# ensures all features contribute equally
+
+# Model creation
+# model = tf.keras.Sequential([...]) → creates a simple neural network
+# tf.keras.Input(shape=(3,)) → model takes 3 inputs
+# layers.Dense(1, activation='sigmoid') → one neuron with sigmoid function
+
+# output will be between 0 and 1
+
+# Compile model
+# model.compile(...) → prepares model for training
+# optimizer='sgd' → updates weights step-by-step
+# loss='binary_crossentropy' → calculates error for binary output
+# metrics=['accuracy'] → tracks performance
+# Training
+# model.fit(x, y, epochs=1000, verbose=0)
+# → trains model for 1000 iterations
+# → adjusts weights to reduce error
+# User input
+# X = [] → empty list to store new data
+# for i in range(4): → takes input for 4 students
+
+# Inside loop:
+
+# study = float(input(...)) → user enters study hours
+# attend = float(input(...)) → user enters attendance
+# assign = float(input(...)) → user enters assignment score
+# X.append([...]) → stores all inputs
+# Convert input
+# X = np.array(X) → converts list to array
+# Normalize input
+# X = X / max_vals → scales input using same values as training
+
+# very important for correct prediction
+
+# Prediction
+# predictions = model.predict(X) → model predicts output for each student
+# Output display
+# for i in range(4): → processes each student
+
+# Inside loop:
+
+# prob = predictions[i][0] → gets probability value
+# result = "PASS" if prob >= 0.5 else "FAIL" → decision rule
