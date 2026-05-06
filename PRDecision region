@@ -1,0 +1,181 @@
+import numpy as np
+import numpy.random as ar
+import matplotlib.pyplot as plt
+
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+t = np.array([0,0,0,1])
+
+w = ar.rand(2)
+print("w=", w)
+
+b = ar.rand(1)
+print("b=", b)
+
+lr = ar.rand(1)
+print("lr=", lr)
+
+for epoch in range(50):
+    print("epoch:", epoch)
+    e = 0
+    for i in range(len(X)):
+        z = np.dot(X[i], w) + b
+        yin = 1 if z >= 0 else 0
+        error = t[i] - yin
+        if error != 0:
+            e += 1
+            print("error=", error)
+            w = w + lr * error * X[i]
+            b = b + lr * error
+    if e == 0:
+        break
+
+print("Final weights:", w)
+print("Final bias:", b)
+
+yin = []
+for i in range(len(X)):
+    z = np.dot(X[i], w) + b
+    yin.append(1 if z >= 0 else 0)
+
+if np.array_equal(yin, t):
+    print("Model is working for all inputs")
+else:
+    print("Model is not fully correct")
+    print("Predictions:", yin)
+    print("Targets:", t)
+
+plt.figure(figsize=(6,6))
+X1 = X[:,0]
+X2 = X[:,1]
+
+plt.scatter(X1, X2, c=t, cmap="coolwarm", edgecolors="k", s=50)
+
+x1 = np.linspace(-7.5, 5, 100)
+x2 = -(x1 * w[0] + b) / w[1]
+
+plt.plot(x1, x2, c="black", label="Decision boundary")
+
+plt.xlabel("x1")
+plt.ylabel("x2")
+plt.title("Perceptron Decision Boundary for AND Gate")
+plt.legend()
+plt.grid()
+
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import numpy as np
+# Imports NumPy for vector operations like dot product.
+# import numpy.random as ar
+# Imports random module to initialize weights, bias, and learning rate.
+# import matplotlib.pyplot as plt
+# Imports plotting library to visualize data and decision boundary.
+# 🔹 Input & Target
+# X = np.array([[0,0],[0,1],[1,0],[1,1]])
+# Stores all possible inputs for AND gate.
+# t = np.array([0,0,0,1])
+# Defines target outputs of AND logic.
+# 🔹 Initialization
+# w = ar.rand(2)
+# Initializes 2 weights randomly (for 2 inputs).
+# print("w=", w)
+# Displays initial weights.
+# b = ar.rand(1)
+# Initializes bias randomly.
+# print("b=", b)
+# Displays bias.
+# lr = ar.rand(1)
+# Initializes learning rate randomly.
+# print("lr=", lr)
+# Displays learning rate.
+# 🔹 Training (Perceptron Learning)
+# for epoch in range(50):
+# Runs training multiple times.
+#     print("epoch:", epoch)
+# Prints current epoch.
+#     e = 0
+# Counts errors in one epoch.
+#     for i in range(len(X)):
+# Loops through each training sample.
+#         z = np.dot(X[i], w) + b
+# Computes weighted sum + bias.
+#         yin = 1 if z >= 0 else 0
+# Applies step activation function.
+#         error = t[i] - yin
+# Calculates difference between actual and predicted output.
+#         if error != 0:
+# Updates only if prediction is wrong.
+#             e += 1
+# Increases error count.
+#             print("error=", error)
+# Displays error value.
+#             w = w + lr * error * X[i]
+# Updates weights using perceptron rule.
+#             b = b + lr * error
+# Updates bias.
+#     if e == 0:
+#         break
+# Stops training early if no errors.
+# 🔹 Final Values
+# print("Final weights:", w)
+# Prints trained weights.
+# print("Final bias:", b)
+# Prints trained bias.
+# 🔹 Testing Model
+# yin = []
+# Stores predicted outputs.
+# for i in range(len(X)):
+# Loops through inputs again.
+#     z = np.dot(X[i], w) + b
+# Computes output.
+#     yin.append(1 if z >= 0 else 0)
+# Stores prediction.
+# if np.array_equal(yin, t):
+# Checks if predictions match targets.
+#     print("Model is working for all inputs")
+# Prints success if correct.
+# else:
+#     print("Model is not fully correct")
+# Prints failure if mismatch.
+#     print("Predictions:", yin)
+#     print("Targets:", t)
+# Displays predicted vs actual outputs.
+# 🔹 Plotting Decision Boundary
+# plt.figure(figsize=(6,6))
+# Creates plotting window.
+# X1 = X[:,0]
+# X2 = X[:,1]
+# Separates input features.
+# plt.scatter(X1, X2, c=t, cmap="coolwarm", edgecolors="k", s=50)
+# Plots points with color based on class.
+# x1 = np.linspace(-7.5, 5, 100)
+# Generates values for x-axis.
+# x2 = -(x1 * w[0] + b) / w[1]
+# Computes decision boundary line using equation.
+# plt.plot(x1, x2, c="black", label="Decision boundary")
+# Draws separating line.
+# plt.xlabel("x1")
+# plt.ylabel("x2")
+# plt.title("Perceptron Decision Boundary for AND Gate")
+# plt.legend()
+# plt.grid()
+# Adds labels, title, legend, and grid.
+# plt.show()
+# Displays the graph.
