@@ -43,6 +43,68 @@ pyp.grid()
 
 
 
+# import numpy as np
+# Imports NumPy to perform mathematical operations like exponent and arrays.
+# import matplotlib.pyplot as pyp
+# Imports plotting library to draw graphs.
+# 🔹 Activation Functions
+# def sigmoid(X):
+#     return (1/(1+np.exp(-X)))
+# Defines Sigmoid function to convert input into range (0 to 1).
+# def tanh(X):
+#     return np.tanh(X)
+# Defines Tanh function to map values between (-1 to 1).
+# def relu(X):
+#     return np.maximum(0,X)
+# Defines ReLU function to keep positive values and make negatives zero.
+# 🔹 Input Values
+# x=np.linspace(-10,10,20)
+# Generates 20 evenly spaced values from -10 to 10.
+# y=sigmoid(x)
+# Applies sigmoid function to all input values.
+# y1=tanh(x)
+# Applies tanh function to input.
+# y2=relu(x)
+# Applies ReLU function to input.
+# 🔹 Figure Setup
+# pyp.figure(figsize=(15,10))
+# Creates a large plotting area.
+# pyp.title("activation function ",color="red",fontsize=20)
+# Adds title to the figure.
+# 🔹 Sigmoid Plot
+# pyp.subplot(2,2,1)
+# Creates first subplot (position 1).
+# pyp.plot(x,y,label="sigmoid",color="red",linestyle="--")
+# Draws sigmoid curve as dashed red line.
+# pyp.scatter(x,y)
+# Shows data points on curve.
+# pyp.xlabel("input")
+# pyp.ylabel("output")
+# pyp.legend()
+# pyp.grid()
+# Adds labels, legend, and grid.
+# 🔹 Tanh Plot
+# pyp.subplot(2,2,2)
+# Creates second subplot.
+# pyp.plot(x,y1,label="tanh",color="red",linestyle="--")
+# Draws tanh curve.
+# pyp.scatter(x,y1)
+# Displays points.
+# pyp.xlabel("input")
+# pyp.ylabel("output")
+# pyp.legend()
+# pyp.grid()
+# Adds labels and grid.
+# 🔹 ReLU Plot
+# pyp.subplot(2,2,3)
+# Creates third subplot.
+# pyp.plot(x,y2,label="Relu",color="red",linestyle="--",marker="*")
+# Draws ReLU curve with star markers.
+# pyp.xlabel("input")
+# pyp.ylabel("output")
+# pyp.legend()
+# pyp.grid()
+# Adds labels, legend, and grid.
 
 
 
@@ -62,50 +124,3 @@ pyp.grid()
 
 
 
-import numpy as np
-Imports NumPy for calculations.
-import matplotlib.pyplot as pyp
-Imports plotting library.
-🔹 Activation Functions
-def sigmoid(X):
-    return (1/(1+np.exp(-X)))
-Defines Sigmoid function → output between 0 and 1.
-def tanh(X):
-    return np.tanh(X)
-Defines Tanh function → output between -1 and 1.
-def relu(X):
-    return np.maximum(0,X)
-Defines ReLU → negative = 0, positive stays same.
-🔹 Input Values
-x=np.linspace(-10,10,20)
-Generates 20 values from -10 to 10.
-y=sigmoid(x)
-y1=tanh(x)
-y2=relu(x)
-Applies all 3 functions on input.
-🔹 Plot Setup
-pyp.figure(figsize=(15,10))
-Creates figure (large size).
-pyp.title("activation function ",color="red",fontsize=20)
-Adds title.
-🔹 Sigmoid Plot
-pyp.subplot(2,2,1)
-First graph position.
-pyp.plot(x,y,label="sigmoid",color="red",linestyle="--")
-pyp.scatter(x,y)
-Line + points for sigmoid.
-pyp.xlabel("input")
-pyp.ylabel("output")
-pyp.legend()
-pyp.grid()
-Labels + legend + grid.
-🔹 Tanh Plot
-pyp.subplot(2,2,2)
-Second graph.
-pyp.plot(x,y1,label="sigmoid",...)
-Plots tanh (label mistake → should be "tanh").
-🔹 ReLU Plot
-pyp.subplot(2,2,3)
-Third graph.
-pyp.plot(x,y2,label="sigmoid",...)
-Plots ReLU (label mistake → should be "relu").
