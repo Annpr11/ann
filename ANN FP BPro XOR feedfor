@@ -1,0 +1,169 @@
+import numpy as np
+import numpy.random as ar
+
+# Input (XOR)
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+Y = np.array([[0],[1],[1],[0]])
+
+lr = 0.5
+np.random.seed(0)
+
+print("===== INITIAL WEIGHTS =====")
+W1 = ar.rand(2,2)
+print("W1 =\n", W1)
+
+W2 = ar.rand(2,1)
+print("W2 =\n", W2)
+
+# Sigmoid function
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+print("\n===== HIDDEN LAYER OUTPUT =====")
+h = sigmoid(np.dot(X, W1))
+print("h =\n", h)
+
+print("\n===== OUTPUT LAYER OUTPUT =====")
+o = sigmoid(np.dot(h, W2))
+print("o =\n", o)
+
+# Derivative
+def sigmoid_d(x):
+    return x * (1 - x)
+
+print("\n===== TRAINING STARTED =====")
+
+# Training
+for i in range(3000):
+
+    # Forward pass
+    h = sigmoid(np.dot(X, W1))
+    o = sigmoid(np.dot(h, W2))
+
+    # Error
+    e = Y - o
+
+    # Backprop
+    d_output = e * sigmoid_d(o)
+    d_hidden = np.dot(d_output, W2.T) * sigmoid_d(h)
+
+    # Print progress
+    if i % 500 == 0:
+        print("\n--- Epoch:", i, "---")
+        print("MSE =", np.mean(e**2))
+        print("d_output =\n", d_output)
+        print("d_hidden =\n", d_hidden)
+
+    # Update weights
+    W2 += lr * np.dot(h.T, d_output)
+    W1 += lr * np.dot(X.T, d_hidden)
+
+# Final Output
+print("\n===== FINAL OUTPUT =====")
+final_o = sigmoid(np.dot(sigmoid(np.dot(X, W1)), W2))
+pred = (final_o > 0.5).astype(int)
+
+print("Predicted Output =\n", pred)
+print("Actual Output =\n", Y)
+
+# Final Weights
+print("\n===== FINAL WEIGHTS =====")
+print("W1 =\n", W1)
+print("W2 =\n", W2)
+
+
+
+
+
+
+
+# import numpy as np
+# Imports NumPy to perform matrix operations efficiently.
+# import numpy.random as ar
+# Imports random module to initialize weights.
+# 🔹 Input & Output
+# X = np.array([[0,0],[0,1],[1,0],[1,1]])
+# Defines input dataset for XOR problem.
+# Y = np.array([[0],[1],[1],[0]])
+# Defines target outputs of XOR logic.
+# lr = 0.5
+# Sets learning rate to control weight updates.
+# np.random.seed(0)
+# Fixes random values so output is same every run.
+# 🔹 Initial Weights
+# print("===== INITIAL WEIGHTS =====")
+# Prints heading.
+# W1 = ar.rand(2,2)
+# Initializes weights between input and hidden layer.
+# print("W1 =\n", W1)
+# Displays W1.
+# W2 = ar.rand(2,1)
+# Initializes weights between hidden and output layer.
+# print("W2 =\n", W2)
+# Displays W2.
+# 🔹 Activation Function
+# def sigmoid(x):
+#     return 1 / (1 + np.exp(-x))
+# Defines sigmoid to convert values between 0 and 1.
+# 🔹 Hidden Layer
+# print("\n===== HIDDEN LAYER OUTPUT =====")
+# Prints heading.
+# h = sigmoid(np.dot(X, W1))
+# Computes hidden layer output using weighted sum + sigmoid.
+# print("h =\n", h)
+# Displays hidden layer values.
+# 🔹 Output Layer
+# print("\n===== OUTPUT LAYER OUTPUT =====")
+# Prints heading.
+# o = sigmoid(np.dot(h, W2))
+# Computes final output from hidden layer.
+# print("o =\n", o)
+# Displays output layer values.
+# 🔹 Derivative Function
+# def sigmoid_d(x):
+#     return x * (1 - x)
+# Defines derivative of sigmoid for backpropagation.
+# print("\n===== TRAINING STARTED =====")
+# Indicates training begins.
+# 🔹 Training Loop
+# for i in range(3000):
+# Runs training for 3000 epochs.
+# h = sigmoid(np.dot(X, W1))
+# o = sigmoid(np.dot(h, W2))
+# Performs forward pass (input → hidden → output).
+# e = Y - o
+# Calculates error between actual and predicted output.
+# d_output = e * sigmoid_d(o)
+# Computes gradient at output layer.
+# d_hidden = np.dot(d_output, W2.T) * sigmoid_d(h)
+# Computes gradient at hidden layer using chain rule.
+# 🔹 Print Training Info
+# if i % 500 == 0:
+# Prints details every 500 epochs.
+# print("\n--- Epoch:", i, "---")
+# print("MSE =", np.mean(e**2))
+# Displays epoch number and Mean Squared Error.
+# print("d_output =\n", d_output)
+# print("d_hidden =\n", d_hidden)
+# Displays gradients.
+# 🔹 Weight Update
+# W2 += lr * np.dot(h.T, d_output)
+# Updates weights between hidden and output layer.
+# W1 += lr * np.dot(X.T, d_hidden)
+# Updates weights between input and hidden layer.
+# 🔹 Final Output
+# print("\n===== FINAL OUTPUT =====")
+# Prints heading.
+# final_o = sigmoid(np.dot(sigmoid(np.dot(X, W1)), W2))
+# Computes final output after training.
+# pred = (final_o > 0.5).astype(int)
+# Converts probabilities to 0 or 1.
+# print("Predicted Output =\n", pred)
+# print("Actual Output =\n", Y)
+# Displays predicted vs actual output.
+# 🔹 Final Weights
+# print("\n===== FINAL WEIGHTS =====")
+# Prints heading.
+# print("W1 =\n", W1)
+# print("W2 =\n", W2)
+# Displays trained weights.
