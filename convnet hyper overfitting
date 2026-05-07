@@ -71,9 +71,19 @@ plt.show()
 
 
 
+#overfitting 
+#model = tf.keras.Sequential([
+#   tf.keras.layers.Conv2D(128, (3,3), activation='relu'),
+#   tf.keras.layers.Conv2D(128, (3,3), activation='relu'),
+#   tf.keras.layers.Flatten(),
+#   tf.keras.layers.Dense(256, activation='relu'),
+#    tf.keras.layers.Dense(10, activation='softmax')
+#])
 
-
-
+#underfitting 
+#model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.0001),
+#              loss='sparse_categorical_crossentropy',
+#              metrics=['accuracy'])
 
 
 
